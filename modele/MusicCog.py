@@ -101,7 +101,7 @@ class MusicCog(commands.Cog):
             song = self.search_yt(query)
             #Si le format de ce que nous retourne la fonction n'est pas le bon
             if type(song) == type(True):
-                await ctx.send("J'ai pas reussi à récupérer la chanson, le format n'est pas le bon. Je ne peux pas lire les playlists ou les livestreams. 😑")
+                await ctx.send("J'ai pas reussi à récupérer la chanson, le format n'est pas le bon. \nJe ne peux pas lire les playlists ni les livestreams. 😑")
             # Sinon on l'ajoute à la file d'attente
             else:
                 await ctx.send(f"Ajouté à la file d'attente : {song['title']} 😎")
