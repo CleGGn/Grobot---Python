@@ -3,79 +3,48 @@ from discord.ext import commands
 import os
 from dotenv import load_dotenv
 import random
-from ressources.anime import random_anime_digger, search_anime
-import youtube_dl
-from ressources.YTDLSource import YTDLSource
+from modele.anime import random_anime_digger, search_anime
+import modele.MusicCog as music
+
 
 load_dotenv()
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-intents = discord.Intents().all()
-bot = commands.Bot(command_prefix="!", intents=intents)
+client = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
-@bot.event
+client.add_cog(music.MusicCog(client))
+
+@client.event
 async def on_ready():
-    print('Connecté en tant que {0.user}'.format(bot))
+    print('Connecté en tant que {0.user}'.format(client))
 
-async def get_prefix(bot, message):
+async def get_prefix(client, message):
     default_prefix= '!'
     return default_prefix
 
-@bot.command(
+@client.command(
 	brief="Writes pong"
 )
 async def ping(ctx):
 	await ctx.channel.send("pong")
 
-# Jikan Part
-@bot.command(
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------ #
+# ------------------------------------------------------------------------ Jikan Part ------------------------------------------------------------------------------ #
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------ #
+@client.command(
     brief= "Fetch a random anime on MyAnimeList"
 )
 async def randanime(ctx):
     response = random_anime_digger()
     await ctx.channel.send(response)
 
-@bot.command()
+@client.command()
 async def lfanime(ctx, *args):
 	response = search_anime(args)
 	await ctx.channel.send(response)
 
-# Youtube Part
-@bot.command(
-    name='join', help='Appelle le bot dans le canal vocal'
-    )
-async def join(ctx):
-    if not ctx.message.author.voice:
-        await ctx.send("{} n'est pas connecté à un canal vocal".format(ctx.message.author.name))
-        return
-    else:
-        channel = ctx.message.author.voice.channel
-    await channel.connect()
 
-@bot.command(
-    name='leave', help='Renvoie le bot du canal vocal'
-    )
-async def leave(ctx):
-    voice_client = ctx.message.guild.voice_client
-    if voice_client.is_connected():
-        await voice_client.disconnect()
-    else:
-        await ctx.send("Le bot n'est pas connecté à un canal vocal.")
 
-@bot.command(
-    name='play_song', help='To play song'
-    )
-async def play(ctx,url):
-    try :
-        server = ctx.message.guild
-        voice_channel = server.voice_client
-        async with ctx.typing():
-            filename = await YTDLSource.from_url(url, loop=bot.loop)
-            voice_channel.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source=filename))
-        await ctx.send('**Now playing:** {}'.format(filename))
-    except:
-        await ctx.send("The bot is not connected to a voice channel.")        
-
-@bot.event
+@client.event
 async def on_message(message):
     username = str(message.author).split('#')[0]
 
@@ -87,6 +56,6 @@ async def on_message(message):
         response = f'Random number is : {random.randrange(1000000)}'
         await message.channel.send(response)
 
-    await bot.process_commands(message)
+    await client.process_commands(message)
 
-bot.run(DISCORD_TOKEN)
+client.run(DISCORD_TOKEN)
