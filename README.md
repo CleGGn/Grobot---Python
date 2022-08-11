@@ -1,9 +1,11 @@
-# Grobot---Python
-Discord bot
+# Grobot - Python
+## Discord bot
+### Work in progress 
 
-Work in progress 
+<p align="center">
+<img width="400" src="http://cdn.shopify.com/s/files/1/0280/4426/3513/articles/gai-maito.png?v=1604067731">
+</p>
 
-![index](https://user-images.githubusercontent.com/88025507/183304443-10665fb3-0cce-4557-9796-840aa5507384.jpg)
 
   ***!help***      Montre ce message <br>
   ***!ping*** :      Ecrit pong <br><br>
