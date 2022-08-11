@@ -7,7 +7,7 @@ Work in progress
 
   ***!help***      Montre ce message <br>
   ***!ping*** :      Ecrit pong <br><br>
-**Music** : <br>
+**Musique** : <br>
   ***!clear*** :     Arrête la musique et nettoie la file d'attente <br>
   ***!leave*** :     Renvoie le bot <br>
   ***!pause*** :     Met en pause la musique en cours <br>
@@ -18,3 +18,6 @@ Work in progress
 **Anime** : <br>
   ***!lfanime*** :   Cherche les animes qui correspondent à la recherche <br>
   ***!randanime*** : Cheche un anime aléatoire sur MyAnimeList <br>
+  ***!randmanga*** : Cheche un manga aléatoire sur MyAnimeList <br><br>
+**Blague** : <br>
+  ***!blague*** : Raconte une blague hilarante <br>
