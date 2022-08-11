@@ -25,11 +25,11 @@ class AnimeCog(commands.Cog):
                 check = False
                 return trimmed_anime
             except jikanpy.APIException:
-                self.random_anime_digger()
+                return msg
             except jikanpy.JikanException:
-                self.random_anime_digger()
+                return msg
             except discord.DiscordException:
-                self.random_anime_digger()
+                return msg
 
     def anime_trimmer(self,anime):
         nl = '\n'
@@ -52,6 +52,44 @@ class AnimeCog(commands.Cog):
         return msg
 
 
+    def random_manga_digger(self):
+        check = True
+        msg = "Wow! Je suis tombé sur une page qui n'existe plus ಠ_ಠ \nRelance la machine !!"
+        while check == True:
+            try:
+                rdm_id = randrange(1,20850)
+                manga = self.jikan.manga(rdm_id)
+                trimmed_manga = self.manga_trimmer(manga)
+                check = False
+                return trimmed_manga
+            except jikanpy.APIException:
+                self.random_manga_digger()
+            except jikanpy.JikanException:
+                self.random_manga_digger()
+            except discord.DiscordException:
+                self.random_manga_digger()
+
+    def manga_trimmer(self,manga):
+        nl = '\n'
+        manga_title = manga['title']
+        manga_url = manga["url"]
+        manga_score = manga["score"]
+        manga_genre = manga['genres']
+        manga_eng_title = manga['title_english']
+        manga_genre_stock = ""
+
+        if manga_eng_title != "None":
+            eng_title = manga_eng_title
+
+        for genre in manga_genre:
+            if genre['name'] != "None":
+                manga_genre_stock += "| " + genre['name'] + " | "
+            else:
+                manga_genre_stock = "Genre non précisé"    
+        msg = f'{manga_title} / {eng_title}{nl}{nl}{manga_genre_stock}{nl}{nl}{manga_score} / 10{nl}{nl}{manga_url}'
+        return msg    
+
+
     def search_anime(self, args):
         nl = '\n'
         list_results = []
@@ -66,7 +104,7 @@ class AnimeCog(commands.Cog):
                 search_row = title['title'] + ", " + title['url']
                 list_results.append(search_row)
 
-            final_result =  list_results[:5]
+            final_result =  list_results[:1]
 
             for title in final_result:
                 msg +=  title + nl   
@@ -85,11 +123,10 @@ class AnimeCog(commands.Cog):
 
     @commands.command(
         name="randanime", 
-        help="Affiche un anime aléatoire depuis MYAnimeList"
+        help="Affiche un anime aléatoire depuis MyAnimeList"
     )
     async def randanime(self, ctx):
         response = self.random_anime_digger()
-        print(response)
         await ctx.channel.send(response)
 
     @commands.command(
@@ -98,4 +135,13 @@ class AnimeCog(commands.Cog):
     )
     async def lfanime(self,ctx, *args):
         response = self.search_anime(args)
+        await ctx.channel.send(response)
+
+    @commands.command(
+        name="randmanga", 
+        help="Affiche un manga aléatoire depuis MyAnimeList"
+    )
+    async def randmanga(self, ctx):
+        response = self.random_manga_digger()
+        print(response)
         await ctx.channel.send(response)

@@ -142,7 +142,7 @@ class MusicCog(commands.Cog):
     @commands.command(
         name="skip", 
         aliases=["s"], 
-        help="Skip la chanson en cours pour passer à la prochaine"
+        help="Passe la chanson en cours et lance la prochaine"
         )
     async def skip(self, ctx):
         # Si une musique est entrain de jouer en ce moment
