@@ -16,7 +16,7 @@ client = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 client.add_cog(music.MusicCog(client))
 client.add_cog(anime.AnimeCog(client))
 client.add_cog(blague.BlaguesCog(client))
-# client.add_cog(pokemon.PokemonCog(client))
+client.add_cog(pokemon.PokemonCog(client))
 
 async def get_prefix(client, message):
     default_prefix= '!'
@@ -43,6 +43,9 @@ async def on_message(message):
         await message.channel.send(f'Au revoir {username} ^_^ !')
     elif message.content.lower()== '!random':
         response = f'Random number is : {random.randrange(1000000)}'
+        await message.channel.send(response)
+    elif message.content.lower()== '!aram':
+        response = "Oui"    
         await message.channel.send(response)
 
     await client.process_commands(message)
