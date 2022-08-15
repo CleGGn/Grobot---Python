@@ -28,3 +28,22 @@ class BlaguesCog(commands.Cog):
         await asyncio.sleep(3)
         await ctx.channel.send("🎉 " + answer)
 
+    @commands.command(
+        brief="Ecrit ping"
+    )
+    async def ping(ctx):
+        await ctx.channel.send("pong")
+
+    @commands.command
+    async def on_message(message):
+        username = str(message.author).split('#')[0]
+
+        if message.content.lower() == "!hello":
+            await message.channel.send(f'Coucou {username} ! UwU')
+        elif message.content.lower() == '!bye':
+            await message.channel.send(f'Au revoir {username} ^_^ !')
+        elif message.content.lower()== '!aram':
+            response = "Oui"    
+            await message.channel.send(response)
+        await commands.process_commands(message)
+
