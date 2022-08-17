@@ -131,7 +131,7 @@ class AnimeCog(commands.Cog):
 
     @commands.command(
         name="lfanime", 
-        help="Affiche les resultats de la recherche depuis MAL"
+        help="Recherche un anime"
     )
     async def lfanime(self,ctx, *args):
         response = self.search_anime(args)

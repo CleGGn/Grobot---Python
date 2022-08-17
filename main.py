@@ -23,5 +23,4 @@ async def get_prefix(client, message):
 @client.event
 async def on_ready():
     print('Connecté en tant que {0.user}'.format(client))
-
 client.run(DISCORD_TOKEN)
