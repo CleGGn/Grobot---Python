@@ -18,8 +18,10 @@
   ***!resume*** :    Relance la musique <br>
   ***!skip*** :      Skip la chanson en cours pour passer à la prochaine <br><br>
 **Anime** : <br>
-  ***!lfanime*** :   Cherche les animes qui correspondent à la recherche <br>
+  ***!lfanime +arg*** :   Cherche les animes qui correspondent à la recherche <br>
   ***!randanime*** : Cheche un anime aléatoire sur MyAnimeList <br>
   ***!randmanga*** : Cheche un manga aléatoire sur MyAnimeList <br><br>
+**Pokemon** : <br>
+  ***!pokemon +arg*** :   Cherche des informations sur un pokemon <br><br>
 **Blague** : <br>
   ***!blague*** : Raconte une blague hilarante <br>
