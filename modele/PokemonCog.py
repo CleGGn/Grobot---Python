@@ -58,14 +58,21 @@ class PokemonCog(commands.Cog):
         return dex
 
     def plot(self,stats):
+        # police
+        font = {'size'   : 9}  
+        plt.rc('font', **font)
+        # Couleur blanche pour effacer les contours du graph
         COLOR = "white"
+        plt.rcParams['figure.figsize'] = (3, 2) # taille du graph
         plt.rcParams['text.color'] = COLOR
         plt.rcParams['axes.labelcolor'] = COLOR
         plt.rcParams['xtick.color'] = COLOR
         plt.rcParams['ytick.color'] = COLOR
+        
         fig, ax = plt.subplots()
         
-        langs = ['PV', 'Attaque', 'Défense','AttSpé', 'DéfSpé', 'Vitesse']
+        plt.subplots_adjust(left=0.15)
+        langs = ['PV', 'Att', 'Déf','AttSp', 'DéfSp', 'Vit']
         y_pos = np.arange(len(langs))
         x_pos = [0, 50, 100, 150, 200, 255]
 
@@ -73,15 +80,21 @@ class PokemonCog(commands.Cog):
         ax.get_xaxis().set_visible(False)
         ax.set_yticks(y_pos, labels=langs)
         bar = ax.barh(langs, stats)
+
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.spines['bottom'].set_visible(False)
         ax.spines['left'].set_visible(False)
 
-        ax.set_xlim(0,255)  
-        ax.bar_label(bar, label_type='center')
-        ax.invert_yaxis()
+        ax.spines['top'].set_color('none')
+        ax.spines['left'].set_position('zero')
+        ax.spines['right'].set_color('none')
+        ax.spines['bottom'].set_position('zero')
 
+        ax.set_xlim(0,255)  
+        ax.bar_label(bar, label_type='edge', padding=3)
+        ax.invert_yaxis()
+        
         fig.savefig("stat.png",transparent=True)
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
